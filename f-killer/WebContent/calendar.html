@@ -1,0 +1,94 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel='stylesheet' type='text/css' href='http://arshaw.com/css/main.css?6' />
+<link rel='stylesheet' type='text/css' href='http://arshaw.com/css/fullcalendar.css?3' />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel='stylesheet' type='text/css' href='http://arshaw.com/js/fullcalendar-1.6.3/fullcalendar/fullcalendar.css' />
+
+<script type='text/javascript' src='http://arshaw.com/js/fullcalendar-1.6.3/jquery/jquery-1.10.2.min.js'></script>
+<script type='text/javascript' src='http://arshaw.com/js/fullcalendar-1.6.3/jquery/jquery-ui-1.10.3.custom.min.js'></script>
+<script type='text/javascript' src='http://arshaw.com/js/fullcalendar-1.6.3/fullcalendar/fullcalendar.min.js'></script>
+<link rel="Stylesheet" type="text/css" href="/Content/fullcalendar/fullcalendar.print.css" />
+
+<script type='text/javascript'>
+	$(document).ready(function() {
+
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+
+		$('#calendar').fullCalendar({
+			 customButtons: {
+			        myCustomButton: {
+			            text: 'custom!',
+			            click: function() {
+			                alert('clicked the custom button!');
+			            }
+			        }
+			    },
+			header : {
+				left : 'prev,next today',
+				center : 'title',
+				right : 'month,agendaWeek,agendaDay'
+			},
+			editable : true,
+			events : [ {
+				id:44,
+				title : 'usecase',
+				start : new Date(y, m, 15),
+				color: '#378006'
+			}, {
+				id:44,
+				title : "design",
+				start : new Date(y, m, 1),
+				color: '#ff99cc',
+				imageurl:'/images/clouds.png'
+			},{
+				title : 'nuri',
+				start : new Date(y, m, 1),
+				color: '#9999ff'
+			},{
+				title : 'hihi',
+				start : new Date(y, m, d - 5),
+				
+				color: '#cc99ff'
+				
+			}, {				
+				title : "<span><i class='fa fa-camera-retro fa-lg'></i></span>",
+				start : new Date(y, m, d + 4),				
+				color : '#ffffff',
+				textColor : '#000000'
+			}, {
+				title : 'Meeting',
+				start : new Date(y, m, d, 10, 30),
+				allDay : false
+			}, {
+				title : 'Lunch',
+				start : new Date(y, m, d
+						),				
+				allDay : false,
+				color: '#ffff33'
+			}, {
+				title : 'Birthday Party',
+				start : new Date(y, m, d + 1, 19, 0),
+				end : new Date(y, m, d + 1, 22, 30),
+				allDay : false,
+				color: '#33ff33'
+			}, {
+				title : 'Click for Google',
+				start : new Date(y, m, 28),
+				
+				url : 'http://www.f-killer.com:8080/test/daumMapTest.jsp'
+			} ],
+			eventRender: function(event, element) {                                          
+				element.find('span.fc-event-title').html(element.find('span.fc-event-title').text());					  
+			},
+		});
+
+	});
+</script>
+</head>
+<body style="background-color:white;">
+	<div id='calendar' style='margin: 5em; font-size: 20px'></div>
+</body>

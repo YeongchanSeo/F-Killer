@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+<link href="css/bootstrap.css" rel="stylesheet"/> -->
+<style>
+
+#submit {
+	width : 370px;
+	margin-left : 130px;
+	border :0;
+	outline:0;
+}
+#divTitle{
+	margin-left : 230px;
+}
+.info{
+	width : 350px;
+	background:black;
+}
+.buttons{
+	width : 80px;
+}
+.endbuttons{
+	margin-left : 230px;
+}
+.cnt{
+	margin : 0;
+}
+
+</style>
+</head>
+<body>
+<div class="row-fluid">
+<form class="form-horizontal span10 offset4" role="form" method="post" action="javascript:alert( 'success!' );" id="form">
+            <div class="control-group" id="divTitle"><h2>팀 생성 하기&nbsp;&nbsp;&nbsp;</h2></div>
+            <div class="control-group" id="divteamName">
+                <label for="inputName" class="col-lg-2 control-label">팀&nbsp;&nbsp;&nbsp;이&nbsp;&nbsp;름&nbsp;&nbsp;&nbsp;</label>
+                <div class="col-lg-12">
+                    <input type="text" class="form-control info" id="teamName" data-rule-required="true" name="teamName">
+                </div>
+            </div>
+             <div class="control-group" id="divTopic">
+                <label for="inputName" class="col-lg-2 control-label">주&nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;</label>
+                <div class="col-lg-12">
+                    <input type="text" class="form-control info" id="topic" data-rule-required="true" name="teamTopic">
+                </div>
+            </div>
+            <div class="control-group" id="divStartDate">
+                <label for="inputName" class="col-lg-2 control-label">프로젝트 시작일&nbsp;&nbsp;</label>
+                <div class="input-group date span4" id="startDate" data-date-format="yyyy-mm-dd" style="margin-left : 0.5%;">
+                	<input class="form-control" type="text" readonly  name="startDate"/>
+					<span class="input-group-addon">
+						<button type="button" class="btn"><i class="fa fa-calendar-check-o"></i></button></span>                  
+						
+                </div>
+            </div>
+            <div class="control-group" id="divEndDate">
+                <label for="inputName" class="col-lg-2 control-label">프로젝트 마감일&nbsp;&nbsp;</label>
+                 <div class="input-group date span4" id="endDate" data-date-format="yyyy-mm-dd" style="margin-left:0.5%;">
+                	<input class="form-control" type="text" readonly name="endDate"  />
+					<span class="input-group-addon">
+						<button type="button" class="btn"><i class="fa fa-calendar-check-o"></i></button></span>                  
+                </div>
+            </div>
+            
+            <div class="control-group" id="divEmail">
+             <label for="inputEmail" class="form-control control-label">교수님 이메일&nbsp;&nbsp;</label>
+             	<div class="col-lg-12">
+                     <input type="text" class="form-control" name="email_id" id="email_id" data-rule-required="true" style="width:100px;" placeholder="아이디" maxlength="40">&nbsp;@&nbsp;
+             
+                     <input type="text" class="form-control" name="email_addr" id="email_addr" style="width:100px;" disabled value="naver.com">
+					<select class="form-control" name="selectEmail" id="selectEmail"  style="width:120px;">
+					     <option value="1">직접입력</option>
+					     <option value="naver.com" selected>naver.com</option>
+					     <option value="hanmail.net">hanmail.net</option>
+					     <option value="hotmail.com">hotmail.com</option>
+					     <option value="nate.com">nate.com</option>
+					     <option value="yahoo.co.kr">yahoo.co.kr</option>
+					     <option value="gmail.com">gmail.com</option>
+					</select>
+                </div> 
+            </div>
+            
+            <div class="control-group" id="divReport">
+                <label for="inputPassword" class="col-lg-2 control-label">보고 방식&nbsp;&nbsp;&nbsp;</label>
+                <div class="col-lg-12">
+                
+		                <div class="btn-group" data-toggle="buttons-radio">
+						  <button type="button" class="btn btn-default report" id="auto" value="">자동</button>
+						  <button type="button" class="btn btn-default report" id="menual" value="">수동</button>						 
+						</div>                
+                </div>
+            </div>
+             <div class="control-group" id="divReportCicle">
+                <label for="inputPassword" class="col-lg-2 control-label">보고 주기&nbsp;&nbsp;&nbsp;</label>
+                <div class="col-lg-12">                
+		                <div class="btn-group" data-toggle="buttons-radio">
+						  <button type="button" class="btn btn-default cicle" value="1week">1주일</button>
+						  <button type="button" class="btn btn-default cicle" value="2week">2주일</button>	
+						  <button type="button" class="btn btn-default cicle" value="month">한달</button>					 
+						</div>
+                </div>
+            </div>
+            
+             <div class="control-group" id="divInvite">
+             	<label for="inputInvite" class="col-lg-2 control-label invite">&nbsp;&nbsp;&nbsp;</label>
+            	<div class="col-lg-12">            		
+            		<button type="button" class="btn btn-warning invite" id="invite">팀원 초대
+            		<span class="badge" id="inviteMember">0명</span>           		
+            		</button>
+            		
+            	</div>             	   
+            </div>      
+           
+            <div class="control-group endbuttons">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-default buttons" id="ok"> 팀 생성 </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-default buttons" id="cancel" onclick="#"> 취 소 </button>
+                </div>
+            </div>
+            <input type="hidden" id="report" name="report" value="">
+            <input type="hidden" id="cicle" name="cicle" value="">
+        </form>
+         </div>
+         
+        <script>
+		    	$(document).ready(function(){
+		    		$("#divReportCicle").hide();
+		    		$("#report").val("auto");
+		    	})
+		    	$("#auto").click(function(){
+		    		$("#divReportCicle").show();
+		    		$("#report").val("auto");
+		    	});
+		    	$("#menual").click(function(){
+		    		
+		    		$("#divReportCicle").hide();
+		    		$("#report").val("menual");
+		    	});
+		    	$(".cicle").click(function(){
+		    		var choice = $(this).val();
+		    		$("#cicle").val(choice);
+		    	});
+        
+            $(function(){
+               
+                $('#selectleader').change(function(){
+                	   $("#selectleader option:selected").each(function () {
+                	         $("#leader").val($(this).text());      //선택값 입력
+                	         $("#leader").attr("disabled",true); //비활성화
+                	   });
+                });
+                                
+                $('.member').click(function(){
+                	alert('들어옴');
+                	//멤버 버튼 클릭 했을 때 처리
+                	                	
+                });
+                
+                $('#selectEmail').change(function(){
+             	   $("#selectEmail option:selected").each(function () {
+             	        
+             	        if($(this).val()== '1'){ //직접입력
+             	             $("#email_addr").val('');                      
+             	             $("#email_addr").attr("disabled",false);
+             	        }else{ 
+             	             $("#email_addr").val($(this).text());
+             	             $("#email_addr").attr("disabled",true);
+             	        }
+             	   });
+             	});
+                
+                $('.report').on('click', function () {
+                    $(this).button('complete')
+                  })
+                
+                
+                $(function () {
+              	  $("#startDate").datepicker({ 
+              	        autoclose: true, 
+              	        todayHighlight: true
+              	  }).datepicker('update', new Date());
+	              	$("#endDate").datepicker({ 
+	          	        autoclose: true, 
+	          	        todayHighlight: true
+	          	  }).datepicker('update', new Date());
+              	});
+                
+                
+                
+                //------- validation 검사
+                $( "form" ).submit(function( event ) {
+                     
+                  //패스워드 검사
+                    if($('#password').val()==""){
+                        alert("패스워드를 입력해 주세요!");
+                                            
+                        $('#password').focus();
+                        return false;                        
+                    }
+                     
+                    //패스워드 확인
+                    if($('#passwordCheck').val()==""){
+                        alert("패스워드 확인을 입력해 주세요!");
+                                                                     
+                        $('#passwordCheck').focus();
+                        return false;
+                    }
+                     
+                    //패스워드 비교
+                    if($('#password').val()!=$('#passwordCheck').val() || $('#passwordCheck').val()==""){
+                        alert("패스워드가 일치하지 않습니다!");
+                                                
+                        $('#passwordCheck').focus();
+                        return false;
+                    }
+                     
+                    //이름
+                    if($('#name').val()==""){
+                        alert("이름을 입력해 주세요!");
+                                              
+                        $('#name').focus();
+                        return false;
+                    }
+                                   
+                    //이메일
+                    if($('#email_id').val()==""){
+                    	alert("이메일을 입력해 주세요!");
+                       
+                        $('#email_id').focus();
+                        return false;
+                    }
+                    if($("#report").val()=="auto"){
+            			if($('#cicle').val()==""){
+            				alert("보고주기를 설정해 주세요!");
+            		
+            			
+            				$(".cicle").focus();
+            				return false;            			
+            			}          			
+            		}
+                    
+                    var frm = document.getElementById("form");
+                    alert(frm.teamName.value+"/"+frm.teamTopic.value+"/"+
+                    		frm.email_id.value+"/"+frm.email_addr.value+"/"+frm.startDate.value+"/"+
+                    		frm.endDate.value+"/"+frm.report.value+"/"+frm.cicle.value);
+                    
+                });                 
+                
+            });
+             
+        </script>
+<!-- <script src="js/bootstrap.min.js"></script> -->
+</body>
+</html>

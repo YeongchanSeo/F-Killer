@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<script src="js/jquery-1.11.3.js"></script>
+
+<style>
+#fb-auth {
+	width: 65%;
+	border: 0;
+	outline: 0;
+	color: #ffffff;
+	background: #003399;
+	height: 35px;
+}
+
+.fIcon {
+	font-size: 18px;
+	color: #ffffff;
+}
+
+#login {
+	width: 30%;
+}
+
+#join {
+	width: 30%;
+}
+
+body {
+	background-image: url('img/1.png');
+}
+
+.back {
+	background: #ffffff;
+}
+
+.input {
+	width: 60%;
+}
+</style>
+</head>
+<body>
+	<div class="row-fluid">
+		<div class="span4 offset4 back" style="margin-top: 8%">
+			<div style="text-align: center; margin-top: 20px;">
+				<div class="control-group">
+					<label class="control-label" for="inputEmail">이메일</label>
+					<div class="controls">
+						<input type="text" id="inputEmail" placeholder="이메일을 입력하세요" class="input">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="inputPassword">비밀번호</label>
+					<div class="controls">
+						<input type="password" id="inputPassword" placeholder="비밀번호를 입력하세요" class="input">
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls" style="margin-top : 20px;">
+						<label class="checkbox inline"> <input type="checkbox">이메일저장 </label>&nbsp;&nbsp;&nbsp; 
+						<label class="checkbox inline" style="margin-left : 5%"> <input type="checkbox">자동로그인</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<button class="btn" id="login">로그인</button>
+						&nbsp;&nbsp;&nbsp; <input type="button" class="btn" id="join" value="회원가입">
+					</div>
+				</div>
+
+				<div class="control-group">
+					<div id="fb-root" class="controls"></div>
+					<button id="fb-auth" class="btn" style="margin-top: 6%; margin-bottom: 25px;">
+						<i class="fa fa-facebook fIcon"></i>&nbsp;&nbsp;&nbsp;&nbsp;페이스북으로	로그인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<form action="#" id="frm" method="post">
+		<input type="hidden" name="email" value="">
+		<input type="hidden" name="password" value="">
+		<input type="hidden" name="cmd" value="login">
+	</form>
+
+	<form action="#" id="facebookfrm" method="post">
+		<input type="hidden" name="Fname" value="">
+		<input type="hidden" name="Femail" value="">
+		<input type="hidden" name="cmd" value="facebookLogin">
+	</form>
+
+	<script src="js/bootstrap.min.js"></script>
+	<script language=javascript>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : 551354935019382,
+				status : true,
+				cookie : false,
+				xfbml : true,
+				oauth : true
+			});
+		}
+
+		function updateButton(response) {
+			var button = document.getElementById('fb-auth');
+			if (response.authResponse) {
+
+				FB.api('/me?fields=name,email', function(response) {
+					if (confirm('facebookID:' + response.email
+							+ ' 로 로그인하시겠습니까?')) {
+						// 확인을 선택했을 경우의 처리. 이 예제에서는 페이스북으로부터 넘겨받은 값들을 post로 다른 페이지에 전달하고 있음. form 생성 및 서브밋은 jquery로..
+						console.log("이메일은:" + response.email + "/이름은:"
+								+ response.name);
+						facebookLogin(response.name, response.email);
+					} else {
+
+						// 취소를 선택했을 경우의 처리(아래는 페이스북 로그아웃 처리)
+						FB.logout(function(response) {
+						});
+					}
+				});
+
+			} else {
+				FB.login(function(response) {
+					if (response.authResponse) {
+						FB.api('/me?fields=name,email', function(response) {
+							console.log("이메일은:" + response.email + "/이름은:"
+									+ response.name);
+							facebookLogin(response.name, response.email);
+						});
+					} else {
+						FB.logout(function(response) {
+						});
+					}
+				}, {
+					scope : 'public_profile,email'
+				});
+			}
+		}
+
+		document.getElementById('fb-auth').onclick = function() {
+
+			FB.Event.subscribe('auth.statusChange', updateButton);
+			FB.getLoginStatus(updateButton);
+		};
+
+		(function() {
+			var e = document.createElement('script');
+			e.async = true;
+			e.src = document.location.protocol
+					+ '//connect.facebook.net/ko_KR/all.js';
+			document.getElementById('fb-root').appendChild(e);
+		}());
+	</script>
+	<script>
+		$("#login").click(function() {
+			var frm = document.getElementById("frm");
+
+			frm.email.value = $("#inputEmail").val();
+			frm.password.value = $("#inputPassword").val();
+
+			
+			alert(frm.email.value+"/"+frm.password.value);
+			
+			//frm.submit();			
+		});
+
+		$("#join").click(function() {
+			location.href = "join.jsp";
+		});
+
+		function facebookLogin(name, email) {
+			
+			var frm = document.getElementById("facebookfrm");
+			frm.Fname.value = name;
+			frm.Femail.value = email;
+
+			alert(frm.Fname.value + "/" + frm.Femail.value + "/"
+					+ frm.cmd.value);
+
+			//frm.summit();
+		}
+	</script>
+</body>
+</html>
